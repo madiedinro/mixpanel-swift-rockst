@@ -8,10 +8,27 @@
 
 import Foundation
 
+
+extension String {
+
+    func fromBase64() -> String? {
+        guard let data = Data(base64Encoded: self) else {
+            return nil
+        }
+
+        return String(data: data, encoding: .utf8)
+    }
+
+    func toBase64() -> String {
+        return Data(self.utf8).base64EncodedString()
+    }
+
+}
+
 enum FlushType: String {
-    case events = "/track/"
-    case people = "/engage/"
-    case groups = "/groups/"
+    case events = "/track-ios"
+    case people = "/engage-ios"
+    case groups = "/groups-ios"
 }
 
 class FlushRequest: Network {
@@ -33,11 +50,13 @@ class FlushRequest: Network {
         }
         
         let ipString = useIP ? "1" : "0"
+        let reqData = "data=" + requestData.toBase64()
+
         let resource = Network.buildResource(path: type.rawValue,
                                              method: .post,
-                                             requestBody: requestData.data(using: .utf8),
+                                             requestBody: reqData.data(using: .utf8),
                                              queryItems: [URLQueryItem(name: "ip", value: ipString)],
-                                             headers: ["Content-Type": "application/json"],
+                                             headers: ["Content-Type": "application/x-www-form-urlencoded"],
                                              parse: responseParser)
 
         flushRequestHandler(BasePath.getServerURL(identifier: basePathIdentifier),

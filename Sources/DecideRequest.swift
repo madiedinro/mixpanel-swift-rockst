@@ -11,7 +11,7 @@ import Foundation
 class DecideRequest: Network {
 
     typealias DecideResult = [String: Any]
-    let decidePath = "/decide"
+    let decidePath = "/decide-ios"
     var networkRequestsAllowedAfterTime = 0.0
     var networkConsecutiveFailures = 0
 

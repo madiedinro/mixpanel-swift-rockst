@@ -16,8 +16,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-        var ADD_YOUR_MIXPANEL_TOKEN_BELOW_🛠🛠🛠🛠🛠🛠: String
-        Mixpanel.initialize(token: "MIXPANEL_TOKEN")
+//        var ADD_YOUR_MIXPANEL_TOKEN_BELOW_🛠🛠🛠🛠🛠🛠: String
+        Mixpanel.initialize(token: "lalala", flushInterval: 3,trackAutomaticEvents: true)
+        Mixpanel.mainInstance().serverURL = "https://bolt.rstat.org/mp_handler"
         Mixpanel.mainInstance().loggingEnabled = true
 
         return true
